@@ -4,23 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Letter</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="letter.css">
     <link rel="stylesheet" href="rose.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <button class="envelope-btn" onclick="openLetter()">
-        <i class="fa-solid fa-envelope-open-heart"></i> Open Letter
-    </button>
+    <div class="envelope-wrapper">
+        <div class="envelope-container" id="envelopeContainer" onclick="handleEnvelopeClick()">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="front-pocket"></div>
+                <div class="letter-preview">
+                    <h2>To my Langlang</h2>
+                </div>
+                <div class="heart-stamp"><i class="fa-solid fa-heart"></i></div>
+            </div>
+            <p class="click-to-open" id="envelopeHint">Tap to open your letter</p>
+        </div>
+    </div>
     
     <div id="letter-cont" class="lightbox-overlay">
         <div class="lightbox-content">
             <button class="close-btn" onclick="closeLetter()"><i class="fa-solid fa-xmark"></i></button>
             <h1 id="Title">Happy 4th Monthsarry my Langlang, my Baby, my Maldita</h1>
             <p>Sorry if I really can't give you anything na like, ma keep nimo sa personal. <br>I just defaulted to something that I can lol.Tho, i am so lucky na naa koy gf na mag effort jud na buhatan kog something physical such as these. </p>
-            <a href="#image" class="gift-link"><i class="fa-solid fa-gift"></i> Key Chain</a>
-            <a href="#image2" class="gift-link"><i class="fa-solid fa-gift"></i>Flowers</a>
-            <a href="#image3" class="gift-link"><i class="fa-solid fa-gift"></i>Flower+Keychain</a>
+            <a href="#" onclick="openImage('image'); return false;" class="gift-link"><i class="fa-solid fa-gift"></i> Key Chain</a>
+            <a href="#" onclick="openImage('image2'); return false;" class="gift-link"><i class="fa-solid fa-gift"></i>Flowers</a>
+            <a href="#" onclick="openImage('image3'); return false;" class="gift-link"><i class="fa-solid fa-gift"></i>Flower+Keychain</a>
             <p>
                 You know baby, I am really happy for al the things that we experienced during this past month. As I create this website, I realized na taas pakog i istorya hahaha. So buckle up. 
             </p>
@@ -43,8 +53,8 @@
             <p>
                Enough drama tho, Look at these vids haha, karon pa biya ko nakapag tiktok with my partner hehe. i am so happy na it was with you :> 
             </p>
-            <a href="#video" class="gift-link"><i class="fa-solid fa-gift"></i> TikTok</a>
-            <a href="#video2" class="gift-link"><i class="fa-solid fa-gift"></i>KissTok</a>
+            <a href="#" onclick="openImage('video'); return false;" class="gift-link"><i class="fa-solid fa-gift"></i> TikTok</a>
+            <a href="#" onclick="openImage('video2'); return false;" class="gift-link"><i class="fa-solid fa-gift"></i>KissTok</a>
             <p>
                 Yk baby, daghan najud tag naagian po. Despite us being 4 months pa lamang. I feel like kaila najud kos imoha hahaha. Tanan maka pa trigger nimo, ma feel nimo — kabalo nako po.
             </p>
@@ -93,33 +103,54 @@
     </div>
 
     <script>
-        function openLetter(){
-            document.getElementById('letter-cont').classList.add('active');
+        let envelopeOpened = false;
+
+        function handleEnvelopeClick() {
+            const container = document.getElementById('envelopeContainer');
+            const hint = document.getElementById('envelopeHint');
+            if (!envelopeOpened) {
+                // First tap: animate envelope open
+                container.classList.add('open');
+                hint.textContent = 'Tap again to read ✉️';
+                envelopeOpened = true;
+            } else {
+                // Second tap: open the letter lightbox
+                openLetter();
+            }
         }
+
+        function openLetter(){ document.getElementById('letter-cont').classList.add('active'); }
         function closeLetter(){
             document.getElementById('letter-cont').classList.remove('active');
+            // Reset envelope state when letter is closed
+            const container = document.getElementById('envelopeContainer');
+            container.classList.remove('open');
+            document.getElementById('envelopeHint').textContent = 'Tap to open your letter';
+            envelopeOpened = false;
         }
+        function openImage(id){ document.getElementById(id).classList.add('active'); }
+        function closeImage(id){ document.getElementById(id).classList.remove('active'); }
     </script>
     
     <!-- Image Lightbox -->
     <div id="image" class="image-lightbox">
-        <a href="#" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" onclick="closeImage(this.parentElement.id); return false;" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
         <img src="attachments/image.png" alt="Key Chain">
     </div>
     <div id="image2" class="image-lightbox">
-        <a href="#" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" onclick="closeImage(this.parentElement.id); return false;" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
         <img src="attachments/image2.png" alt="Key Chain">
     </div>
     <div id="image3" class="image-lightbox">
-        <a href="#" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" onclick="closeImage(this.parentElement.id); return false;" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
         <img src="attachments/image3.jpg" alt="Key Chain">
     </div>
     <div id="video" class="image-lightbox">
-        <a href="#" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" onclick="closeImage(this.parentElement.id); return false;" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
         <video controls src="attachments/tiktok.mp4" alt="Key Chain"></video>
     </div>
     <div id="video2" class="image-lightbox">
-        <a href="#" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
+        <a href="#" onclick="closeImage(this.parentElement.id); return false;" class="close-image-btn"><i class="fa-solid fa-xmark"></i></a>
         <video controls src="attachments/tiktok-kiss.mp4" alt="Key Chain"></video>
     </div>
 </body>

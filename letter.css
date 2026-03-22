@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* --- GLOBAL RESET & TYPOGRAPHY --- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { width: 100%; max-width: 100vw; overflow-x: hidden; margin: 0; padding: 0; }
+body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #f3e8ff 0%, #ffdde1 100%); color: #4a4a4a; min-height: 100vh; display: grid; place-items: center; }
+img, video { max-width: 100%; height: auto; }
+h1 { font-family: 'Dancing Script', cursive; color: #9d4edd; font-size: clamp(2em, 7vw, 2.6em); margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(157, 78, 221, 0.1); line-height: 1.2; }
+h2 { font-family: 'Dancing Script', cursive; color: #9d4edd; font-size: clamp(1.6em, 5.5vw, 2.2em); margin-top: 10px; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(157, 78, 221, 0.1); line-height: 1.2; }
+p { font-size: 1.05em; line-height: 1.7; color: #555; margin: 15px 0; }
+em { font-family: 'Dancing Script', cursive; color: #bc0b08; font-weight: bold; font-size: 1.25em; }
+
+/* --- LIGHTBOX OVERLAY & CARD AESTHETIC --- */
+.lightbox-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center; 
+    z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.lightbox-overlay.active { opacity: 1; visibility: visible; }
+.lightbox-content {
+    background-color: #fdfaf6; padding: 30px 20px; border-radius: 8px; 
+    width: calc(100% - 30px); max-width: 500px; max-height: 85vh; 
+    overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    margin: auto; text-align: center; position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05), 0 15px 40px rgba(0,0,0,0.15), inset 0 0 50px rgba(230, 220, 210, 0.4);
+    border-top: 1px solid #fff; border-left: 1px solid #fff;
+    transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@media (min-width: 768px) { .lightbox-content { padding: 50px 40px; width: 600px; } }
+.lightbox-overlay.active .lightbox-content { transform: scale(1); }
+
+.close-btn {
+    position: absolute; top: 15px; right: 15px; background: rgba(157, 78, 221, 0.1); border: none; color: #9d4edd;
+    font-size: 1.5em; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    cursor: pointer; transition: all 0.3s ease; box-shadow: none; margin: 0; z-index: 20;
+}
+.close-btn:hover { background: #9d4edd; color: white; transform: rotate(90deg); }
+
+/* --- IMAGE & VIDEO LIGHTBOX --- */
+.image-lightbox {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+}
+.image-lightbox.active { opacity: 1; visibility: visible; }
+.image-lightbox img, .image-lightbox video {
+    max-width: 90%; max-height: 80%; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 3px solid #f3e8ff; object-fit: contain;
+}
+.image-lightbox.active img, .image-lightbox.active video { transform: scale(1); }
+.close-image-btn {
+    position: absolute; top: 70px; right: 20px; color: rgba(255,255,255,0.7); font-size: 2.2em; text-decoration: none; transition: all 0.3s ease; z-index: 10;
+}
+.close-image-btn:hover { color: #ff7eb3; transform: rotate(90deg); }
+
+/* --- LINKS AND BUTTONS --- */
+.gift-link {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin: 6px 2px; padding: 8px 16px; 
+    background: #faf5ff; color: #9d4edd; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.9em; 
+    transition: all 0.3s ease; border: 2px solid #e0b1cb; box-shadow: 0 4px 12px rgba(157, 78, 221, 0.15); text-align: center;
+}
+.gift-link:hover { background: #f3e8ff; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(157, 78, 221, 0.25); }
+.back-to-top-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin: 25px auto 10px auto; padding: 12px 25px; 
+    background: linear-gradient(45deg, #9d4edd 0%, #ff7eb3 100%); color: white; text-decoration: none; border-radius: 50px;
+    font-weight: 600; font-size: 0.95em; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
+}
+.back-to-top-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(157, 78, 221, 0.5); color: white; }
+
+/* --- INTERACTIVE ENVELOPE --- */
+.envelope-wrapper { display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh; }
+.envelope-container { perspective: 1000px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 25px; margin: auto; }
+.envelope { position: relative; width: 280px; height: 190px; background: #e0b1cb; border-radius: 10px; box-shadow: 0 12px 30px rgba(157, 78, 221, 0.3); transition: transform 0.4s ease; transform-style: preserve-3d; }
+.envelope:hover { transform: translateY(-5px); }
+.envelope .front-pocket {
+    position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-style: solid; border-width: 100px 140px 90px 140px; 
+    border-color: transparent #ecd1e5 #e0b1cb #ecd1e5; z-index: 3; border-radius: 0 0 10px 10px; pointer-events: none;
+}
+.envelope .flap {
+    position: absolute; top: 0; left: 0; width: 0; height: 0; border-style: solid; border-width: 110px 140px 0 140px;
+    border-color: #f3e8ff transparent transparent transparent; transform-origin: top; z-index: 4; transition: transform 0.5s ease 0.4s, z-index 0s linear 0.4s;
+}
+.envelope-container:hover .flap, .envelope-container:active .flap, .envelope-container.open .flap { transform: rotateX(180deg); z-index: 1; transition: transform 0.6s ease, z-index 0s linear 0.3s; }
+.letter-preview {
+    position: absolute; top: 10px; left: 15px; right: 15px; height: 160px; background: #fdfaf6; border-radius: 8px; z-index: 2;
+    display: flex; justify-content: center; align-items: center; transition: transform 0.6s ease; box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+}
+.envelope-container:hover .letter-preview, .envelope-container:active .letter-preview, .envelope-container.open .letter-preview { transform: translateY(-70px); transition: transform 0.6s ease 0.4s; }
+.letter-preview h2 { font-family: 'Dancing Script', cursive; color: #9d4edd; margin: 0; font-size: 1.8em; }
+.heart-stamp {
+    position: absolute; top: 80px; left: 120px; width: 40px; height: 40px; background: #ff7eb3; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center; color: white; font-size: 1.2em; z-index: 5;
+    box-shadow: 0 4px 10px rgba(255, 126, 179, 0.4); transition: transform 0.6s ease 0.4s, opacity 0.3s ease 0.3s;
+}
+.envelope-container:hover .heart-stamp, .envelope-container:active .heart-stamp, .envelope-container.open .heart-stamp { opacity: 0; transform: rotateX(180deg) scale(0); transition: opacity 0.3s ease, transform 0.6s ease; }
+.click-to-open {
+    font-size: 0.9em; color: #9d4edd; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    animation: bounce 2s infinite; background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); padding: 8px 20px; border-radius: 30px;
+}
